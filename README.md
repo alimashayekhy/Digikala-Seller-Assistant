@@ -3,12 +3,9 @@
 ## Table of Contents
 
 - [Digikala-Seller-Assistant](#Digikala-Seller-Assistant)
-  - [Introduction](#introduction)
   - [Getting Started](#getting-started)
     - [Installation](#installation)
   - [License](#license)
-
-## Introduction
 
 ## Getting Started
 
