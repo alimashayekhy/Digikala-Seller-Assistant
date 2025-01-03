@@ -64,7 +64,6 @@ def callback(ch, method, properties, data):
             return
         tm = TokenManager(data['channel_id'])
         token = tm.get()
-        version = tm.version()
         page_number = data["page_number"]
         print(page_number)
         channel_id = ObjectId(data['channel_id'])
@@ -82,8 +81,7 @@ def callback(ch, method, properties, data):
             ch.basic_ack(delivery_tag=method.delivery_tag)
             return
 
-        if version == 'v2':
-            resp = json.loads(response.text)
+        resp = json.loads(response.text)
         for index, item in enumerate(resp['data']['items']):
             di = DataImporter(item, channel_id)
             di.save_to_db()
