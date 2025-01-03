@@ -5,7 +5,6 @@ from bson import ObjectId
 from datetime import datetime
 from changePrice.api import change_price
 from changePrice.tools import error_handler
-from app.changeLog.Messages import Messages
 
 sys.path.insert(1, '../../')
 import rabbitmqConnector as rabbit
@@ -34,10 +33,10 @@ def update_product_price(product_data):
     new_price = round(product_data['salesPrice'] * 1.10 / 100) * 100
     # Simulate API call to update price
     api_response = dkNormalChangePrice(product_data, new_price)
-    changelog_entry = {
-        'DKPC': Messages['DKPC'],
-        'productId': Messages['productId'],
-        'previousPrice': Messages['previousPrice'],
+    messages = {
+        'DKPC': product_data['DKPC'],
+        'productId': str(product_data['_id']),
+        'previousPrice': product_data['salesPrice'],
         'newPrice': new_price if api_response else "Price didn't update",
         'when': datetime.now(),
         'status': 'SUCCESSFULLY' if api_response else 'ERROR',
@@ -53,7 +52,7 @@ def update_product_price(product_data):
         print(f"Updated product {product_data['_id']} to new price {new_price}")
     else:
         print(f"Failed to update product {product_data['_id']}")
-    changelog_collection.insert_one(changelog_entry)
+    changelog_collection.insert_one(messages)
     print(f"Changelog saved for product {product_data['DKPC']}")
     return
 

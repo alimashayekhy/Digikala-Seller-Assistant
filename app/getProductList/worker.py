@@ -111,7 +111,7 @@ def callback(ch, method, properties, data):
         make_error(ch, method, data)
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
-async def process_message():
+def process_message():
     """
     Process the received message and push it to the RabbitMQ queue
     """
