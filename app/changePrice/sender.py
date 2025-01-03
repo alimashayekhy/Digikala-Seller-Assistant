@@ -57,7 +57,6 @@ async def fetch_and_send_products():
             {'_id': product['_id']},
             {'$set': {'lastGetToChangePrice': datetime.now()}}
         )
-        return {"status":True}
 
 async def scheduler():
     while True:
