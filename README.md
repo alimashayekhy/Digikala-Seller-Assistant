@@ -4,16 +4,11 @@
 
 - [Digikala-Seller-Assistant](#Digikala-Seller-Assistant)
   - [Introduction](#introduction)
-  - [Features](#features)
   - [Getting Started](#getting-started)
     - [Installation](#installation)
   - [License](#license)
 
 ## Introduction
-
-## Features
-
--
 
 ## Getting Started
 
@@ -29,13 +24,33 @@ Make sure to perform the following step:
 
 1. **Running the Project:**
 
+Important -> **_Run project in linux_**
+
 To run the project, use the following command:
 
 ```shell
 unicorn main:app --host 127.0.0.1 --port 8000 --reload
 ```
 
-These commands will start the Fast API and run your project.
+This command will start the Fast API and run your project.
+
+2. **Install dependencies:**
+
+```shell
+pip3 install pika
+pip3 install asyncio
+sudo rabbitmq-plugins enable rabbitmq_management
+sudo service rabbitmq-server restart
+pip3 install fastapi
+pip install pytz
+pip install pathlib
+```
+
+3. **Access rabbitmq:**
+
+```shell
+http://127.0.0.1:your-port
+```
 
 ## License
 

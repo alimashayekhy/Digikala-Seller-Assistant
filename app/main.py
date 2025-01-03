@@ -1,5 +1,5 @@
 import configparser
-from fastapi import FastAPI, Request, BackgroundTasks
+from fastapi import FastAPI, Request
 from pydantic import BaseModel
 import sys
 sys.path.insert(1,'../')
@@ -13,13 +13,18 @@ config.read('../config.cfg')
 
 app = FastAPI()
 
+class MessageData(BaseModel):
+    channel_id: str
+    page_number: int
+    retry: int = 0
+
 @app.post("/getProductList")
 async def get_product_list(request: Request):
     return await server.get_product_list(request)
 
 @app.post("/prepareProductList/")
-async def process_message():
-    return await worker.process_message()
+async def process_message(message: MessageData):
+    return await worker.process_message(message)
 
 @app.post("/getPrice/")
 async def scheduler():

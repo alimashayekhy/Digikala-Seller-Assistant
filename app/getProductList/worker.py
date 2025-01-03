@@ -7,8 +7,6 @@ from datetime import datetime
 from bson import ObjectId
 import traceback
 import sys
-import asyncio
-
 
 # Import your custom modules
 sys.path.insert(1,'../../')
@@ -109,7 +107,7 @@ def callback(ch, method, properties, data):
         make_error(ch, method, data)
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
-def process_message():
+def process_message(message):
     """
     Process the received message and push it to the RabbitMQ queue
     """
@@ -119,4 +117,4 @@ def process_message():
     rabbit_ch.basic_consume(queue=QUEUE_NAME, on_message_callback=callback)
     rabbit_ch.start_consuming()
 
-    return {"status": True}
+    return {'message':message.dict()}
